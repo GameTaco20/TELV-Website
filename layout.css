@@ -15,6 +15,8 @@ body {
 .logo {
     width: 80px; /* Set fixed width */
     height: auto; /* Maintain aspect ratio */
+    max-width: 100%; /* Prevent overflow */
+    max-height: 80px; /* Prevent the logo from becoming too large */
     position: absolute; /* Position independently of other elements */
     top: -129%; /* Move the logo above the countdown */
     left: 50%; /* Center the logo horizontally */
@@ -34,11 +36,14 @@ body {
 
 .social-icon {
     display: inline-block;
+    width: 40px; /* Set width for social icons */
+    height: 40px; /* Set height for social icons */
 }
 
 .icon {
-    width: 40px;
-    height: 40px;
+    width: 100%; /* Ensure image scales inside its container */
+    height: 100%; /* Ensure image scales inside its container */
+    object-fit: contain; /* Maintain aspect ratio and prevent stretching */
     transition: transform 0.3s ease;
 }
 
@@ -97,6 +102,11 @@ footer {
     .logo {
         width: 70px; /* Adjust the logo size for smaller screens */
     }
+
+    .social-icon {
+        width: 35px; /* Adjust social icons size for smaller screens */
+        height: 35px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -106,5 +116,10 @@ footer {
 
     .logo {
         width: 60px; /* Adjust the logo size for very small screens */
+    }
+
+    .social-icon {
+        width: 30px; /* Adjust social icons size for very small screens */
+        height: 30px;
     }
 }
