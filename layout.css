@@ -10,8 +10,20 @@ body {
     justify-content: center;
     height: 100vh;
     overflow: hidden;
+    opacity: 0; /* Initially hidden */
+    animation: fadeIn 1.5s forwards; /* Apply the fadeIn animation */
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Start with opacity 0 */
+    }
+    100% {
+        opacity: 1; /* End with opacity 1 */
+    }
+}
+
+/* Rest of your styles below */
 .logo {
     width: 80px; /* Set fixed width */
     height: auto; /* Maintain aspect ratio */
