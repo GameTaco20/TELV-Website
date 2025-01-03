@@ -13,7 +13,8 @@ body {
 }
 
 .logo {
-    width: 98px; /* Set the logo size */
+    width: 80px; /* Set fixed width */
+    height: auto; /* Maintain aspect ratio */
     position: absolute; /* Position independently of other elements */
     top: -129%; /* Move the logo above the countdown */
     left: 50%; /* Center the logo horizontally */
@@ -44,7 +45,6 @@ body {
 .icon:hover {
     transform: scale(1.1); /* Slight zoom effect on hover */
 }
-
 
 .container {
     text-align: center;
@@ -93,10 +93,18 @@ footer {
     .number {
         font-size: 2.5rem;
     }
+
+    .logo {
+        width: 70px; /* Adjust the logo size for smaller screens */
+    }
 }
 
 @media (max-width: 480px) {
     .number {
         font-size: 2rem;
+    }
+
+    .logo {
+        width: 60px; /* Adjust the logo size for very small screens */
     }
 }
