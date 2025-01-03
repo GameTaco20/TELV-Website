@@ -6,8 +6,24 @@
     <title>TELV</title>
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" href="layout.css"> <!-- External CSS file -->
+    <style>
+        /* Pull-to-refresh visual feedback */
+        #refresh-indicator {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+    <div id="refresh-indicator">Refreshing...</div>
     <img src="logo.png" alt="TELV Logo" class="corner-logo">
     <div class="container">
         <div id="countdown">
@@ -32,6 +48,7 @@
     </div>
 
     <script>
+        // Countdown Timer Script
         function updateCountdown() {
             const now = new Date();
             const gmtPlusTwo = new Date(now.getTime() + (2 * 60 * 60 * 1000)); // Convert to GMT+2
@@ -55,6 +72,33 @@
         // Update countdown every second
         setInterval(updateCountdown, 1000);
         updateCountdown(); // Initialize immediately
+
+        // Pull-to-refresh functionality
+        let isRefreshing = false;
+        let startY = 0;
+
+        window.addEventListener('touchstart', (e) => {
+            if (window.scrollY === 0) {
+                startY = e.touches[0].clientY;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (window.scrollY === 0 && e.touches[0].clientY - startY > 50 && !isRefreshing) {
+                const refreshIndicator = document.getElementById('refresh-indicator');
+                refreshIndicator.style.display = 'block';
+                isRefreshing = true;
+                setTimeout(() => {
+                    location.reload();
+                }, 1000); // Reload after 1 second
+            }
+        });
+
+        window.addEventListener('touchend', () => {
+            const refreshIndicator = document.getElementById('refresh-indicator');
+            refreshIndicator.style.display = 'none';
+            isRefreshing = false;
+        });
     </script>
 </body>
 </html>
