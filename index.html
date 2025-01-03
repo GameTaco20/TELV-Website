@@ -10,10 +10,10 @@
         /* Pull-to-refresh animation styles */
         #pull-refresh {
             position: fixed;
-            top: -100px;
+            top: -80px; /* Initially hidden above the screen */
             left: 0;
-            right: 0;
-            height: 100px;
+            width: 100%;
+            height: 80px;
             background-color: rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
@@ -25,7 +25,7 @@
         }
 
         #pull-refresh.visible {
-            transform: translateY(100px);
+            transform: translateY(80px); /* Move down to become visible */
         }
 
         #pull-refresh .icon {
@@ -100,39 +100,51 @@
         updateCountdown(); // Initialize immediately
 
         // Pull-to-refresh logic
-        let isRefreshing = false;
         let startY = 0;
+        let isRefreshing = false;
         const pullRefresh = document.getElementById('pull-refresh');
 
         window.addEventListener('touchstart', (e) => {
-            if (window.scrollY === 0) {
+            if (window.scrollY === 0) { // Only trigger if we are at the top of the page
                 startY = e.touches[0].pageY;
+                pullRefresh.style.transition = 'none'; // Disable smooth transition for drag
             }
         });
 
         window.addEventListener('touchmove', (e) => {
             const moveY = e.touches[0].pageY;
             if (moveY > startY && window.scrollY === 0) {
-                const distance = Math.min(moveY - startY, 100);
-                pullRefresh.style.transform = `translateY(${distance}px)`;
+                const distance = moveY - startY;
 
-                if (distance === 100) {
+                if (distance > 20) {
+                    pullRefresh.style.transform = `translateY(${distance - 80}px)`; // Show the pull-down animation
+                }
+
+                // Show spinner animation when the pull reaches a certain distance
+                if (distance > 80) {
                     pullRefresh.classList.add('visible');
                 }
             }
         });
 
         window.addEventListener('touchend', () => {
-            if (pullRefresh.classList.contains('visible') && !isRefreshing) {
+            const distance = parseInt(pullRefresh.style.transform.split('(')[1]);
+
+            if (distance >= 80 && !isRefreshing) {
                 isRefreshing = true;
-                pullRefresh.style.transform = 'translateY(0px)';
                 setTimeout(() => {
-                    location.reload();
-                }, 500); // Refresh the page
+                    location.reload(); // Refresh the page after the pull-to-refresh
+                }, 500);
             } else {
-                pullRefresh.style.transform = 'translateY(-100px)';
+                // Reset the position if not enough drag distance
+                pullRefresh.style.transform = 'translateY(-80px)';
+                pullRefresh.classList.remove('visible');
             }
-            pullRefresh.classList.remove('visible');
+
+            // Re-enable transition after dragging ends
+            setTimeout(() => {
+                pullRefresh.style.transition = 'transform 0.3s ease-in-out';
+            }, 300);
         });
     </script>
 </body>
