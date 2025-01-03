@@ -1,80 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
-    <title>TELV</title>
-    <link rel="icon" href="logo.png" type="image/png">
-    <link rel="stylesheet" href="layout.css"> <!-- External CSS file -->
-</head>
-<body>
-    <div class="container">
-        <!-- Logo positioned above the timer -->
-        <img src="logo.png" alt="TELV Logo" class="logo">
-        
-        <!-- Countdown Timer -->
-        <div id="countdown">
-            <div class="time-unit">
-                <div id="days" class="number">0</div>
-                <div class="label">Days</div>
-            </div>
-            <div class="time-unit">
-                <div id="hours" class="number">0</div>
-                <div class="label">Hours</div>
-            </div>
-            <div class="time-unit">
-                <div id="minutes" class="number">0</div>
-                <div class="label">Minutes</div>
-            </div>
-            <div class="time-unit">
-                <div id="seconds" class="number">0</div>
-                <div class="label">Seconds</div>
-            </div>
-        </div>
+/* General Styles */
+body {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    opacity: 0; /* Initially hidden */
+    animation: fadeIn 1.5s forwards; /* Apply the fadeIn animation */
+}
 
-        <footer>&copy; 2025 TELV</footer>
-    </div>
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Start with opacity 0 */
+    }
+    100% {
+        opacity: 1; /* End with opacity 1 */
+    }
+}
 
-    <!-- Social Links at the Bottom -->
-    <div class="social-links">
-        <a href="https://discord.gg/Tf6Kx83ZtG" target="_blank" class="social-icon">
-            <img src="discord-logo.png" alt="Discord" class="icon">
-        </a>
-        <a href="https://x.com/TELV28" target="_blank" class="social-icon">
-            <img src="twitter-x-logo.png" alt="Twitter X" class="icon">
-        </a>
-    </div>
+/* Rest of your styles below */
+.logo {
+    width: 80px; /* Set fixed width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100%; /* Prevent overflow */
+    max-height: 80px; /* Prevent the logo from becoming too large */
+    position: absolute; /* Position independently of other elements */
+    top: -129%; /* Move the logo above the countdown */
+    left: 50%; /* Center the logo horizontally */
+    transform: translateX(-50%); /* Adjust for exact centering */
+}
 
-    <script>
-        // Countdown logic for global countdown to the end of the current year
-        function updateCountdown() {
-            const now = new Date();
-            
-            // Get the current year and set the target date to the last second of the year
-            const currentYear = now.getFullYear();
-            const endOfYear = new Date(`${currentYear + 1}-01-01 00:00:00 GMT+0200`);  // Set target date for the end of current year
-    
-            // Calculate the time remaining until the end of the current year
-            const timeLeft = endOfYear - now;
-    
-            // Calculate the number of days, hours, minutes, and seconds remaining
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-    
-            // Update the countdown display with the calculated values
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
-        }
-    
-        // Update the countdown every second
-        setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initialize countdown immediately
-    </script>
-    
-    
-</body>
-</html>
+.social-links {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icon {
+    display: inline-block;
+    width: 40px; /* Set width for social icons */
+    height: 40px; /* Set height for social icons */
+}
+
+.icon {
+    width: 100%; /* Ensure image scales inside its container */
+    height: 100%; /* Ensure image scales inside its container */
+    object-fit: contain; /* Maintain aspect ratio and prevent stretching */
+    transition: transform 0.3s ease;
+}
+
+.icon:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+#countdown {
+    display: flex;
+    gap: 15px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    flex-wrap: nowrap;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40px;
+}
+
+.number {
+    font-size: 3rem;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-align: center;
+}
+
+.label {
+    font-size: 1rem;
+    margin-top: 4px;
+    color: #bbb;
+}
+
+footer {
+    margin-top: 15px;
+    font-size: 0.7rem;
+    color: #555;
+    white-space: nowrap; /* Ensures text stays on one line */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .number {
+        font-size: 2.5rem;
+    }
+
+    .logo {
+        width: 70px; /* Adjust the logo size for smaller screens */
+    }
+
+    .social-icon {
+        width: 35px; /* Adjust social icons size for smaller screens */
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .number {
+        font-size: 2rem;
+    }
+
+    .logo {
+        width: 60px; /* Adjust the logo size for very small screens */
+    }
+
+    .social-icon {
+        width: 30px; /* Adjust social icons size for very small screens */
+        height: 30px;
+    }
+}
