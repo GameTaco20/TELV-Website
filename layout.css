@@ -30,12 +30,14 @@ body {
     gap: 20px;
     font-size: 2rem;
     font-weight: bold;
+    flex-wrap: nowrap; /* Prevent the elements from wrapping */
 }
 
 .time-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: 50px;
 }
 
 .number {
@@ -44,7 +46,6 @@ body {
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    min-width: 70px;
     text-align: center;
 }
 
@@ -64,34 +65,24 @@ footer {
 
 /* For screens smaller than 768px (phones and small tablets) */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-        justify-content: flex-start;
-        padding: 20px;
-        height: auto;
+    #countdown {
+        gap: 10px; /* Reduce spacing between timer boxes */
+    }
+
+    .number {
+        font-size: 3rem; /* Smaller font size */
+        padding: 8px 15px; /* Adjust padding */
+    }
+
+    .label {
+        font-size: 1rem; /* Smaller label font size */
     }
 
     .corner-logo {
         top: 10px;
         left: 10px;
-        width: 60px;
+        width: 60px; /* Smaller logo */
         height: 60px;
-    }
-
-    #countdown {
-        flex-direction: column;
-        gap: 10px;
-        font-size: 1.5rem;
-    }
-
-    .number {
-        font-size: 3rem;
-        padding: 8px 15px;
-        min-width: 50px;
-    }
-
-    .label {
-        font-size: 1rem;
     }
 
     footer {
@@ -102,12 +93,16 @@ footer {
 
 /* Optional: For very small screens (<480px) */
 @media (max-width: 480px) {
+    #countdown {
+        gap: 5px; /* Reduce spacing even further */
+    }
+
     .number {
-        font-size: 2.5rem;
+        font-size: 2.5rem; /* Even smaller font size */
+        padding: 5px 10px; /* Adjust padding */
     }
 
     .label {
-        font-size: 0.9rem;
+        font-size: 0.9rem; /* Smaller label font size */
     }
 }
-
