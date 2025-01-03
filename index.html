@@ -148,9 +148,11 @@
 
             if (distance >= 80 && !isRefreshing) {
                 isRefreshing = true;
+                // Disable the pull-to-refresh animation
+                pullRefresh.style.transition = 'none'; // Disable transition for the immediate effect
                 setTimeout(() => {
                     location.reload(); // Refresh the page after the pull-to-refresh
-                }, 500);
+                }, 500); // Let the browser refresh naturally
             } else {
                 // Reset the position if not enough drag distance
                 pullRefresh.style.transform = 'translateY(-80px)';
