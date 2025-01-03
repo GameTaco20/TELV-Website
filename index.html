@@ -46,29 +46,35 @@
     </div>
 
     <script>
-        // Countdown logic
+        // Countdown logic for global countdown to the end of the current year
         function updateCountdown() {
             const now = new Date();
-            const gmtPlusTwo = new Date(now.getTime() + (2 * 60 * 60 * 1000)); // Convert to GMT+2
-            const currentYear = gmtPlusTwo.getFullYear();
-            const nextNewYear = new Date(`January 1, ${currentYear + 1} 00:00:00 GMT+0200`);
-            const timeLeft = nextNewYear - gmtPlusTwo;
-
-            // Calculate time components
+            
+            // Get the current year and set the target date to the last second of the year
+            const currentYear = now.getFullYear();
+            const endOfYear = new Date(`${currentYear + 1}-01-01 00:00:00 GMT+0200`);  // Set target date for the end of current year
+    
+            // Calculate the time remaining until the end of the current year
+            const timeLeft = endOfYear - now;
+    
+            // Calculate the number of days, hours, minutes, and seconds remaining
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            // Update the countdown numbers
+    
+            // Update the countdown display with the calculated values
             document.getElementById('days').textContent = days;
             document.getElementById('hours').textContent = hours;
             document.getElementById('minutes').textContent = minutes;
             document.getElementById('seconds').textContent = seconds;
         }
-
+    
+        // Update the countdown every second
         setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initialize immediately
+        updateCountdown(); // Initialize countdown immediately
     </script>
+    
+    
 </body>
 </html>
