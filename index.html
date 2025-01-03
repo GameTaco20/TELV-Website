@@ -6,10 +6,50 @@
     <title>TELV</title>
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" href="layout.css"> <!-- External CSS file -->
+    <style>
+        /* Pull-to-refresh animation styles */
+        #pull-refresh {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease-in-out;
+            z-index: 9999;
+        }
+
+        #pull-refresh.visible {
+            transform: translateY(100px);
+        }
+
+        #pull-refresh .icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid white;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="refresh-container">
-        <div id="refresh-spinner"></div>
+    <div id="pull-refresh">
+        <div class="icon"></div>
     </div>
     <img src="logo.png" alt="TELV Logo" class="corner-logo">
     <div class="container">
@@ -35,6 +75,7 @@
     </div>
 
     <script>
+        // Countdown logic
         function updateCountdown() {
             const now = new Date();
             const gmtPlusTwo = new Date(now.getTime() + (2 * 60 * 60 * 1000)); // Convert to GMT+2
@@ -42,60 +83,58 @@
             const nextNewYear = new Date(`January 1, ${currentYear + 1} 00:00:00 GMT+0200`);
             const timeLeft = nextNewYear - gmtPlusTwo;
 
+            // Calculate time components
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
+            // Update the countdown numbers
             document.getElementById('days').textContent = days;
             document.getElementById('hours').textContent = hours;
             document.getElementById('minutes').textContent = minutes;
             document.getElementById('seconds').textContent = seconds;
         }
 
-        function handlePullToRefresh() {
-            const refreshContainer = document.getElementById('refresh-container');
-            let startY = 0;
-            let isDragging = false;
-
-            document.addEventListener('touchstart', (event) => {
-                if (window.scrollY === 0) {
-                    startY = event.touches[0].clientY;
-                    isDragging = true;
-                }
-            });
-
-            document.addEventListener('touchmove', (event) => {
-                if (isDragging) {
-                    const currentY = event.touches[0].clientY;
-                    const offset = currentY - startY;
-
-                    if (offset > 0) {
-                        refreshContainer.style.height = `${offset}px`;
-                        refreshContainer.style.opacity = Math.min(offset / 100, 1);
-                        if (offset > 100) {
-                            refreshContainer.classList.add('refresh-ready');
-                        } else {
-                            refreshContainer.classList.remove('refresh-ready');
-                        }
-                    }
-                }
-            });
-
-            document.addEventListener('touchend', () => {
-                if (isDragging && refreshContainer.classList.contains('refresh-ready')) {
-                    location.reload(); // Reload the page
-                }
-                refreshContainer.style.height = '0px';
-                refreshContainer.style.opacity = '0';
-                refreshContainer.classList.remove('refresh-ready');
-                isDragging = false;
-            });
-        }
-
         setInterval(updateCountdown, 1000);
-        updateCountdown();
-        handlePullToRefresh();
+        updateCountdown(); // Initialize immediately
+
+        // Pull-to-refresh logic
+        let isRefreshing = false;
+        let startY = 0;
+        const pullRefresh = document.getElementById('pull-refresh');
+
+        window.addEventListener('touchstart', (e) => {
+            if (window.scrollY === 0) {
+                startY = e.touches[0].pageY;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            const moveY = e.touches[0].pageY;
+            if (moveY > startY && window.scrollY === 0) {
+                const distance = Math.min(moveY - startY, 100);
+                pullRefresh.style.transform = `translateY(${distance}px)`;
+
+                if (distance === 100) {
+                    pullRefresh.classList.add('visible');
+                }
+            }
+        });
+
+        window.addEventListener('touchend', () => {
+            if (pullRefresh.classList.contains('visible') && !isRefreshing) {
+                isRefreshing = true;
+                pullRefresh.style.transform = 'translateY(0px)';
+                setTimeout(() => {
+                    location.reload();
+                }, 500); // Refresh the page
+            } else {
+                pullRefresh.style.transform = 'translateY(-100px)';
+            }
+            pullRefresh.classList.remove('visible');
+        });
     </script>
 </body>
 </html>
+s
