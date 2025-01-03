@@ -2,91 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
     <title>TELV</title>
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" href="layout.css"> <!-- External CSS file -->
-    <style>
-        /* General Styles */
-        body {
-            margin: 0;
-            background-color: black;
-            color: white;
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow-y: auto; /* Allow vertical scrolling */
-        }
-
-        .corner-logo {
-            position: absolute;
-            top: 15px; /* Reduced spacing */
-            left: 15px; /* Reduced spacing */
-            width: 60px; /* Smaller logo */
-            height: 60px; /* Smaller logo */
-        }
-
-        .container {
-            text-align: center;
-            position: relative;
-        }
-
-        #countdown {
-            display: flex;
-            gap: 15px; /* Reduced gap between timer boxes */
-            font-size: 1.8rem; /* Smaller font size for labels */
-            font-weight: bold;
-            flex-wrap: nowrap;
-        }
-
-        .time-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 40px; /* Reduced minimum width */
-        }
-
-        .number {
-            font-size: 3rem; /* Smaller number font size */
-            padding: 8px 16px; /* Reduced padding */
-            border-radius: 6px; /* Smaller border radius */
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-align: center;
-        }
-
-        .label {
-            font-size: 1rem; /* Smaller label font size */
-            margin-top: 4px; /* Reduced spacing */
-            color: #bbb;
-        }
-
-        footer {
-            margin-top: 15px; /* Reduced margin */
-            font-size: 0.7rem; /* Smaller footer font size */
-            color: #555;
-        }
-
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            .number {
-                font-size: 2.5rem; /* Smaller numbers on tablets */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .number {
-                font-size: 2rem; /* Smaller numbers on phones */
-            }
-        }
-    </style>
 </head>
 <body>
-    <img src="logo.png" alt="TELV Logo" class="corner-logo">
     <div class="container">
+        <!-- Logo positioned above the timer -->
+        <img src="logo.png" alt="TELV Logo" class="logo">
+        
+        <!-- Countdown Timer -->
         <div id="countdown">
             <div class="time-unit">
                 <div id="days" class="number">0</div>
@@ -105,7 +31,18 @@
                 <div class="label">Seconds</div>
             </div>
         </div>
+
         <footer>&copy; 2025 TELV</footer>
+    </div>
+
+    <!-- Social Links at the Bottom -->
+    <div class="social-links">
+        <a href="https://discord.gg/Tf6Kx83ZtG" target="_blank" class="social-icon">
+            <img src="discord-logo.png" alt="Discord" class="icon">
+        </a>
+        <a href="https://x.com/TELV28" target="_blank" class="social-icon">
+            <img src="twitter-x-logo.png" alt="Twitter X" class="icon">
+        </a>
     </div>
 
     <script>

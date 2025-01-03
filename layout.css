@@ -12,13 +12,39 @@ body {
     overflow: hidden;
 }
 
-.corner-logo {
-    position: absolute;
-    top: 15px; /* Reduced spacing */
-    left: 15px; /* Reduced spacing */
-    width: 60px; /* Smaller logo */
-    height: 60px; /* Smaller logo */
+.logo {
+    width: 98px; /* Set the logo size */
+    position: absolute; /* Position independently of other elements */
+    top: -129%; /* Move the logo above the countdown */
+    left: 50%; /* Center the logo horizontally */
+    transform: translateX(-50%); /* Adjust for exact centering */
 }
+
+.social-links {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icon {
+    display: inline-block;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.icon:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
 
 .container {
     text-align: center;
@@ -27,8 +53,8 @@ body {
 
 #countdown {
     display: flex;
-    gap: 15px; /* Reduced gap between timer boxes */
-    font-size: 1.8rem; /* Smaller font size for labels */
+    gap: 15px;
+    font-size: 1.8rem;
     font-weight: bold;
     flex-wrap: nowrap;
 }
@@ -37,28 +63,40 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 40px; /* Reduced minimum width */
+    min-width: 40px;
 }
 
 .number {
-    font-size: 3rem; /* Smaller number font size */
-    padding: 8px 16px; /* Reduced padding */
-    border-radius: 6px; /* Smaller border radius */
+    font-size: 3rem;
+    padding: 8px 16px;
+    border-radius: 6px;
     background: rgba(255, 255, 255, 0.1);
     color: white;
     text-align: center;
 }
 
 .label {
-    font-size: 1rem; /* Smaller label font size */
-    margin-top: 4px; /* Reduced spacing */
+    font-size: 1rem;
+    margin-top: 4px;
     color: #bbb;
 }
 
 footer {
-    margin-top: 15px; /* Reduced margin */
-    font-size: 0.7rem; /* Smaller footer font size */
+    margin-top: 15px;
+    font-size: 0.7rem;
     color: #555;
+    white-space: nowrap; /* Ensures text stays on one line */
 }
 
-/* Removed Pull-to-Refresh Styles (No need for pull refresh styles) */
+/* Responsiveness */
+@media (max-width: 768px) {
+    .number {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .number {
+        font-size: 2rem;
+    }
+}
