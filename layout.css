@@ -1,0 +1,113 @@
+/* General Styles */
+body {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.corner-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+#countdown {
+    display: flex;
+    gap: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.number {
+    font-size: 4rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    min-width: 70px;
+    text-align: center;
+}
+
+.label {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    color: #bbb;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For screens smaller than 768px (phones and small tablets) */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px;
+        height: auto;
+    }
+
+    .corner-logo {
+        top: 10px;
+        left: 10px;
+        width: 60px;
+        height: 60px;
+    }
+
+    #countdown {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 1.5rem;
+    }
+
+    .number {
+        font-size: 3rem;
+        padding: 8px 15px;
+        min-width: 50px;
+    }
+
+    .label {
+        font-size: 1rem;
+    }
+
+    footer {
+        font-size: 0.7rem;
+        margin-top: 10px;
+    }
+}
+
+/* Optional: For very small screens (<480px) */
+@media (max-width: 480px) {
+    .number {
+        font-size: 2.5rem;
+    }
+
+    .label {
+        font-size: 0.9rem;
+    }
+}
+

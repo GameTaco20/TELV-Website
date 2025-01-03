@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TELV</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="layout.css"> <!-- External CSS file -->
+</head>
+<body>
+    <img src="logo.png" alt="TELV Logo" class="corner-logo">
+    <div class="container">
+        <div id="countdown">
+            <div class="time-unit">
+                <div id="days" class="number">0</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-unit">
+                <div id="hours" class="number">0</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-unit">
+                <div id="minutes" class="number">0</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="time-unit">
+                <div id="seconds" class="number">0</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+        <footer>&copy; 2025 TELV</footer>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const gmtPlusTwo = new Date(now.getTime() + (2 * 60 * 60 * 1000)); // Convert to GMT+2
+            const currentYear = gmtPlusTwo.getFullYear();
+            const nextNewYear = new Date(`January 1, ${currentYear + 1} 00:00:00 GMT+0200`);
+            const timeLeft = nextNewYear - gmtPlusTwo;
+
+            // Calculate time components
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Update the countdown numbers
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initialize immediately
+    </script>
+</body>
+</html>
