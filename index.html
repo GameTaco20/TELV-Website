@@ -13,7 +13,7 @@
         <img src="logo.png" alt="TELV Logo" class="logo">
         
         <!-- Countdown Timer -->
-        <div id="countdown">
+        <div id="countdown" class="countdown" onclick="countdownClicked()">
             <div class="time-unit">
                 <div id="days" class="number">0</div>
                 <div class="label">Days</div>
@@ -46,30 +46,46 @@
     </div>
 
     <script>
+        let clickCount = 0;
+
         // Countdown logic for global countdown to the end of the current year
         function updateCountdown() {
             const now = new Date();
-            
-            // Set the target date to the midnight of January 1, next year
             const currentYear = now.getFullYear();
             const endOfYear = new Date(currentYear + 1, 0, 1); // Midnight of January 1
 
-            // Calculate the time remaining until the end of the current year
             const timeLeft = endOfYear - now;
 
-            // Calculate the number of days, hours, minutes, and seconds remaining
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-            // Update the countdown display with the calculated values
             document.getElementById('days').textContent = days;
             document.getElementById('hours').textContent = hours;
             document.getElementById('minutes').textContent = minutes;
             document.getElementById('seconds').textContent = seconds;
         }
-    
+
+        // Easter egg logic: Track clicks on the countdown
+        function countdownClicked() {
+            clickCount++;
+            
+            if (clickCount >= 5) {
+                // Fade out the countdown
+                document.getElementById('countdown').style.transition = 'opacity 1s';
+                document.getElementById('countdown').style.opacity = '0';
+
+                // After fading, display the "I like you!" message
+                setTimeout(function() {
+                    const message = document.createElement('div');
+                    message.classList.add('like-message');
+                    message.textContent = "Fuck you nigger!";
+                    document.querySelector('.container').appendChild(message);
+                }, 1000); // Delay to ensure fade out happens before showing message
+            }
+        }
+
         // Update the countdown every second
         setInterval(updateCountdown, 1000);
         updateCountdown(); // Initialize countdown immediately
