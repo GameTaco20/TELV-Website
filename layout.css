@@ -156,7 +156,7 @@ footer {
     background: rgba(255, 255, 255, 0.1); /* Grey background like countdown */
     padding: 20px 40px; /* Wider padding for the text box */
     border-radius: 6px; /* Rounded corners */
-    text-align: left; /* Align text to the left */
+    text-align: center; /* Align text to the left */
     position: absolute;
     top: 50%; /* Position the message exactly in the middle */
     left: 50%; /* Center horizontally */
