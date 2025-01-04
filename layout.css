@@ -140,3 +140,26 @@ footer {
         height: 30px;
     }
 }
+
+/* Style for the "I like you!" message */
+.like-message {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white; /* Pink color for the message */
+    text-align: center;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: fadeInMessage 1s forwards;
+}
+
+@keyframes fadeInMessage {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
