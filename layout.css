@@ -164,9 +164,11 @@ footer {
     opacity: 0;
     animation: fadeInMessage 1s forwards;
     white-space: pre-line; /* Allow text to wrap and respect line breaks */
-    width: 70%; /* Set a percentage width to make it responsive */
-    max-width: 1100px; /* Maximum width of the box */
+    width: 133%; /* Set a percentage width to make it responsive */
+    max-width: 1000px; /* Maximum width of the box */
+    height: auto; /* Allow height to adjust based on text */
     word-wrap: break-word; /* Break words if necessary */
+    box-sizing: border-box; /* Ensure padding is included in width/height calculation */
 }
 
 /* Media query for tablets and small screens */
@@ -195,6 +197,7 @@ footer {
         opacity: 1;
     }
 }
+
 
 
 /* Update the countdown position when it slides up */
