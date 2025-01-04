@@ -50,19 +50,19 @@
         function updateCountdown() {
             const now = new Date();
             
-            // Get the current year and set the target date to the last second of the year
+            // Set the target date to the midnight of January 1, next year
             const currentYear = now.getFullYear();
-            const endOfYear = new Date(`${currentYear + 1}-01-01 00:00:00 GMT+0200`);  // Set target date for the end of current year
-    
+            const endOfYear = new Date(currentYear + 1, 0, 1); // Midnight of January 1
+
             // Calculate the time remaining until the end of the current year
             const timeLeft = endOfYear - now;
-    
+
             // Calculate the number of days, hours, minutes, and seconds remaining
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-    
+
             // Update the countdown display with the calculated values
             document.getElementById('days').textContent = days;
             document.getElementById('hours').textContent = hours;
@@ -74,7 +74,5 @@
         setInterval(updateCountdown, 1000);
         updateCountdown(); // Initialize countdown immediately
     </script>
-    
-    
 </body>
 </html>
