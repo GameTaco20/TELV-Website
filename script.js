@@ -59,7 +59,7 @@ function countdownClicked() {
         setTimeout(function () {
             const message = document.createElement('div');
             message.classList.add('like-message');
-            message.textContent = "2025 Release Roadmap [ COMPLETED ]\nEstimated Date of Completion: 31 December 2025 23:59\n\n@The Team\nGoals/Achievements:\nEat Healthy -\nGo to the gym -\n\n❤️ Will always keep you boys informed about what's to come.";
+            message.textContent = "2025 Release Roadmap\nEstimated Date of Completion: 31 December 2025 23:59\n\nGoals/Achievements:\nEat Healthy -\nGo to the gym -\n\n❤️ Will always keep you boys informed about what's to come.";
             document.querySelector('.container').appendChild(message);
         }, 1000); // Delay to ensure the slide happens before showing the box
 
