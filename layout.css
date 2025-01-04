@@ -141,11 +141,11 @@ footer {
     }
 }
 
-/* Style for the "I like you!" message */
+/* Style for the message */
 .like-message {
-    font-size: 2rem;
+    font-size: 3rem; /* Increased the base font size */
     font-weight: bold;
-    color: white; /* Pink color for the message */
+    color: white; 
     text-align: center;
     position: absolute;
     top: 50%; /* Center vertically */
@@ -153,6 +153,20 @@ footer {
     transform: translate(-50%, -50%);
     opacity: 0;
     animation: fadeInMessage 1s forwards;
+    white-space: nowrap; /* Prevent the text from wrapping */
+}
+
+/* Media query to make the message text smaller on smaller screens */
+@media (max-width: 768px) {
+    .like-message {
+        font-size: 2.5rem; /* Adjust the font size for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .like-message {
+        font-size: 2rem; /* Adjust the font size for very small screens */
+    }
 }
 
 @keyframes fadeInMessage {
@@ -163,3 +177,5 @@ footer {
         opacity: 1;
     }
 }
+
+
