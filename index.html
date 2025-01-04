@@ -9,26 +9,29 @@
 </head>
 <body>
     <div class="container">
-        <!-- Logo positioned above the timer -->
-        <img src="logo.png" alt="TELV Logo" class="logo">
-        
-        <!-- Countdown Timer -->
-        <div id="countdown" class="countdown" onclick="countdownClicked()">
-            <div class="time-unit">
-                <div id="days" class="number">0</div>
-                <div class="label">Days</div>
-            </div>
-            <div class="time-unit">
-                <div id="hours" class="number">0</div>
-                <div class="label">Hours</div>
-            </div>
-            <div class="time-unit">
-                <div id="minutes" class="number">0</div>
-                <div class="label">Minutes</div>
-            </div>
-            <div class="time-unit">
-                <div id="seconds" class="number">0</div>
-                <div class="label">Seconds</div>
+        <!-- Wrapper for logo and countdown -->
+        <div class="countdown-wrapper">
+            <!-- Logo positioned above the timer -->
+            <img src="logo.png" alt="TELV Logo" class="logo">
+            
+            <!-- Countdown Timer -->
+            <div id="countdown" class="countdown" onclick="countdownClicked()">
+                <div class="time-unit">
+                    <div id="days" class="number">0</div>
+                    <div class="label">Days</div>
+                </div>
+                <div class="time-unit">
+                    <div id="hours" class="number">0</div>
+                    <div class="label">Hours</div>
+                </div>
+                <div class="time-unit">
+                    <div id="minutes" class="number">0</div>
+                    <div class="label">Minutes</div>
+                </div>
+                <div class="time-unit">
+                    <div id="seconds" class="number">0</div>
+                    <div class="label">Seconds</div>
+                </div>
             </div>
         </div>
 
@@ -46,7 +49,7 @@
     </div>
 
     <script>
-        let clickCount = 0;
+        let eggTriggered = false; // Flag to track if the Easter egg has been triggered
 
         // Countdown logic for global countdown to the end of the current year
         function updateCountdown() {
@@ -69,21 +72,21 @@
 
         // Easter egg logic: Track clicks on the countdown
         function countdownClicked() {
-            clickCount++;
-            
-            if (clickCount >= 5) {
-                // Fade out the countdown
-                document.getElementById('countdown').style.transition = 'opacity 1s';
-                document.getElementById('countdown').style.opacity = '0';
+            if (eggTriggered) return; // Prevent further clicks once the egg is triggered
+            eggTriggered = true; // Set the flag to true once the egg is triggered
 
-                // After fading, display the "I like you!" message
-                setTimeout(function() {
-                    const message = document.createElement('div');
-                    message.classList.add('like-message');
-                    message.textContent = "NIGGER NIGGER!";
-                    document.querySelector('.container').appendChild(message);
-                }, 1000); // Delay to ensure fade out happens before showing message
-            }
+            // Slide the countdown wrapper higher to create space for the message box
+            const countdownWrapper = document.querySelector('.countdown-wrapper');
+            countdownWrapper.style.transition = 'transform 1s';
+            countdownWrapper.style.transform = 'translateY(-85%)'; // Move it higher but leave space below the top
+
+            // After sliding, display the grey box with text
+            setTimeout(function () {
+                const message = document.createElement('div');
+                message.classList.add('like-message');
+                message.textContent = "2025 Release Roadmap [ COMPLETED ]\nEstimated Date of Completion: 31 December 2025 23:59\n\n@The Team\nGoals/Achievements:\nEat Healty -\nGo to the gym -\n\n❤️ Will always keep you boys informed about what's to come.";
+                document.querySelector('.container').appendChild(message);
+            }, 1000); // Delay to ensure the slide happens before showing the box
         }
 
         // Update the countdown every second
