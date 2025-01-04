@@ -23,16 +23,21 @@ body {
     }
 }
 
+/* Wrapper for logo and countdown */
+.countdown-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 1s; /* Apply sliding effect to the wrapper */
+}
+
 /* Logo styles */
 .logo {
     width: 80px; /* Set fixed width */
     height: auto; /* Maintain aspect ratio */
     max-width: 100%; /* Prevent overflow */
     max-height: 80px; /* Prevent the logo from becoming too large */
-    position: absolute; /* Position independently of other elements */
-    top: -129%; /* Move the logo above the countdown */
-    left: 50%; /* Center the logo horizontally */
-    transform: translateX(-50%); /* Adjust for exact centering */
+    margin-bottom: 110px; /* Add space between logo and countdown */
 }
 
 /* Social links at the bottom */
@@ -78,8 +83,10 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     flex-wrap: nowrap;
+    transition: transform 1s;
 }
 
+/* Time unit styles */
 .time-unit {
     display: flex;
     flex-direction: column;
@@ -141,31 +148,42 @@ footer {
     }
 }
 
-/* Style for the message */
+/* Style for the message (grey box with text) */
 .like-message {
-    font-size: 3rem; /* Increased the base font size */
+    font-size: 1rem; /* Default font size */
     font-weight: bold;
-    color: white; 
-    text-align: center;
+    color: white; /* White text */
+    background: rgba(255, 255, 255, 0.1); /* Grey background like countdown */
+    padding: 20px 40px; /* Wider padding for the text box */
+    border-radius: 6px; /* Rounded corners */
+    text-align: left; /* Align text to the left */
     position: absolute;
-    top: 50%; /* Center vertically */
+    top: 50%; /* Position the message exactly in the middle */
     left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* Perfect center horizontally and vertically */
     opacity: 0;
     animation: fadeInMessage 1s forwards;
-    white-space: nowrap; /* Prevent the text from wrapping */
+    white-space: pre-line; /* Allow text to wrap and respect line breaks */
+    width: 70%; /* Set a percentage width to make it responsive */
+    max-width: 1100px; /* Maximum width of the box */
+    word-wrap: break-word; /* Break words if necessary */
 }
 
-/* Media query to make the message text smaller on smaller screens */
+/* Media query for tablets and small screens */
 @media (max-width: 768px) {
     .like-message {
-        font-size: 2.5rem; /* Adjust the font size for tablets */
+        font-size: 0.9rem; /* Slightly smaller font size */
+        padding: 15px 30px; /* Adjust padding */
+        width: 85%; /* Increase the width of the message box */
     }
 }
 
+/* Media query for very small screens (like mobile phones) */
 @media (max-width: 480px) {
     .like-message {
-        font-size: 2rem; /* Adjust the font size for very small screens */
+        font-size: 0.8rem; /* Even smaller font size */
+        padding: 10px 20px; /* Adjust padding */
+        width: 90%; /* Make the message box even wider */
     }
 }
 
@@ -179,3 +197,7 @@ footer {
 }
 
 
+/* Update the countdown position when it slides up */
+#countdown {
+    transform: translateY(-60%); /* Move the countdown a little higher */
+}
