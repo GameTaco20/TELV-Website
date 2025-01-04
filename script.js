@@ -1,5 +1,6 @@
-let clickCount = 0;
-let eggTriggered = false; // Flag to check if the Easter egg has been triggered
+let eggTriggered = false; // Flag to track if the Easter egg has been triggered
+let messageVisible = false; // Flag to track if the message box is visible
+let isAnimating = false; // Flag to block interactions during animation
 
 // Countdown logic for global countdown to the end of the current year
 function updateCountdown() {
@@ -20,23 +21,64 @@ function updateCountdown() {
     document.getElementById('seconds').textContent = seconds;
 }
 
-// Easter egg logic: Track clicks on the countdown
+// Toggle the countdown and message box visibility
 function countdownClicked() {
-    if (eggTriggered) return; // Prevent multiple clicks after the first trigger
-    eggTriggered = true; // Set the flag to true once the egg is triggered
+    if (isAnimating) return; // Block click if animation is in progress
 
-    // Slide the countdown above the text
-    document.getElementById('countdown').style.transition = 'transform 1s';
-    document.getElementById('countdown').style.transform = 'translateY(-100%)';
+    if (messageVisible) {
+        // Close the message box and reset everything
+        const countdownWrapper = document.querySelector('.countdown-wrapper');
+        isAnimating = true; // Set animation flag
 
-    // After sliding, display the grey box with text
-    setTimeout(function() {
-        const message = document.createElement('div');
-        message.classList.add('like-message');
-        message.textContent = "2025 Release Roadmap [ COMPLETED ]\nEstimated Date of Completion: 31 December 2025 23:59\n\n@The Team\nGoals/Achievements:\nEat Healthy -\nGo to the gym -\n\n❤️ Will always keep you boys informed about what's to come.";
-        document.querySelector('.container').appendChild(message);
-    }, 1000); // Delay to ensure the slide happens before showing the box
+        countdownWrapper.style.transition = 'transform 1s';
+        countdownWrapper.style.transform = 'translateY(0)'; // Reset countdown position
+        
+        // Remove the message box
+        const message = document.querySelector('.like-message');
+        if (message) {
+            message.remove();
+        }
+
+        // Reset flag and style
+        eggTriggered = false; // Allow the Easter egg to be triggered again
+        messageVisible = false; // Mark the message box as hidden
+
+        setTimeout(() => { isAnimating = false; }, 1000); // Reset the flag after animation duration
+    } else if (!eggTriggered) {
+        // Trigger Easter egg logic
+        eggTriggered = true; // Set the flag to true once the egg is triggered
+
+        // Slide the countdown wrapper higher to create space for the message box
+        const countdownWrapper = document.querySelector('.countdown-wrapper');
+        isAnimating = true; // Set animation flag
+
+        countdownWrapper.style.transition = 'transform 1s';
+        countdownWrapper.style.transform = 'translateY(-85%)'; // Move it higher but leave space below the top
+
+        // After sliding, display the grey box with text
+        setTimeout(function () {
+            const message = document.createElement('div');
+            message.classList.add('like-message');
+            message.textContent = "2025 Release Roadmap [ COMPLETED ]\nEstimated Date of Completion: 31 December 2025 23:59\n\n@The Team\nGoals/Achievements:\nEat Healthy -\nGo to the gym -\n\n❤️ Will always keep you boys informed about what's to come.";
+            document.querySelector('.container').appendChild(message);
+        }, 1000); // Delay to ensure the slide happens before showing the box
+
+        messageVisible = true; // Mark the message box as visible
+
+        setTimeout(() => { isAnimating = false; }, 1000); // Reset the flag after animation duration
+    }
 }
+
+// Prevent right-click context menu
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault(); // Disable right-click context menu
+});
+
+// Prevent copy event
+document.addEventListener('copy', function(e) {
+    e.preventDefault(); // Prevent copy event
+    alert("Copying text is disabled.");
+});
 
 // Update the countdown every second
 setInterval(updateCountdown, 1000);
